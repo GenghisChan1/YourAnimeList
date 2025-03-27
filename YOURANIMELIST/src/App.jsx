@@ -1,14 +1,16 @@
-import { useGlobalContext } from "./context/global"
+import { BrowserRouter, Routes, Route }  from "react-router-dom";
+
+import Mainpage from "./components/mainpage/mainpage";
+import Animedisplay from "./components/Animedisplay/animedisplay";
 
 function App() {
-
-  const value = useGlobalContext();
-  console.log(value);
-  
   return (
-    <>
-      
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Mainpage  />} />
+        <Route path="/anime/:id" element={<Animedisplay />} />
+      </Routes>
+    </BrowserRouter>
   )
 }
 

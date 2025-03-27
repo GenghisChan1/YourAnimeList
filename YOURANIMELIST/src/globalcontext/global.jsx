@@ -20,7 +20,15 @@ export function GlobalcontextProvider({ children }) {
     try {
       const res = await fetch(`${ version }/top/${hashMap[type][1]}`);
       const data = await res.json();
-      dispatch({ type: hashMap[type][0], payload: data.data });
+
+      const uniqueData = data.data.reduce((acc, anime) => {
+        if (!acc.some(item => item.mal_id === anime.mal_id)) {
+          acc.push(anime);
+        }
+        return acc;
+      }, []);
+
+      dispatch({ type: hashMap[type][0], payload: uniqueData });
     } catch (error) {
       console.error("Error fetching anime:", error);
       dispatch({...state, loading: false});

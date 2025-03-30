@@ -8,15 +8,16 @@ export function GlobalcontextProvider({ children }) {
 
   const [state, dispatch] = useReducer( globalreducer, initialStates );
   const [search, setSearch] = useState("")
-  
-  const hashMap = {
-    "bypopularity": [ACTIONS.GET_POPULARITY, "anime?filter=bypopularity"],
-    "byairing": [ACTIONS.GET_AIRING, "anime?filter=airing"],
-    "byrating": [ACTIONS.GET_RATED, "anime"]
-  }
 
   async function getData(version, type){
-    dispatch({ type: ACTIONS.Loading })
+    
+    const hashMap = {
+      "bypopularity": [ACTIONS.GET_POPULARITY, "anime?filter=bypopularity"],
+      "byairing": [ACTIONS.GET_AIRING, "anime?filter=airing"],
+      "byrating": [ACTIONS.GET_RATED, "anime"]
+    }
+
+    dispatch({ type: ACTIONS.Loading });
     try {
       const res = await fetch(`${ version }/top/${hashMap[type][1]}`);
       const data = await res.json();
@@ -61,6 +62,7 @@ export function GlobalcontextProvider({ children }) {
       state.isSearch = true;
     } else {
       state.isSearch = false;
+      alert("Please enter a search term.");
     }
   }
 
@@ -73,6 +75,7 @@ export function GlobalcontextProvider({ children }) {
       ...state,
       dispatch,
       ACTIONS,
+      getData,
       handleChange,
       handleSubmit,
       searchQuery,

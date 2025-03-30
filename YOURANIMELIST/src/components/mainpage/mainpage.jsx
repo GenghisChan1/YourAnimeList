@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 import AiringPage from "../Airingpage/airingpage";
-import PopularPage from "../Popularpage/popularpage";
+import PopularPage from "../PopularPage/popularpage";
 import { useGlobalContext } from "../../globalcontext/global";
 
 export default function Mainpage() {
@@ -18,7 +18,7 @@ export default function Mainpage() {
         return <AiringPage />;
     }
   }
-
+  
   return (
     <div>
       <button onClick={() => setRendered("Airing")}>Airing</button>

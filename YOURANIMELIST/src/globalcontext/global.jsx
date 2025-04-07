@@ -58,7 +58,7 @@ export function GlobalcontextProvider({ children }) {
   function handleSubmit (event) {
     event.preventDefault();
     if (search){
-      search(search);
+      searchQuery(search);
       state.isSearch = true;
     } else {
       state.isSearch = false;

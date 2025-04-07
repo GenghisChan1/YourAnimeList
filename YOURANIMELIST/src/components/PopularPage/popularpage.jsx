@@ -1,28 +1,25 @@
 import { Link } from "react-router-dom";
 
+import PopulateAnimeMAL from "../../globalcontext/populate";
 import { useGlobalContext } from "../../globalcontext/global";
 import { MALv4 } from "../../globalcontext/baseURLs";
 import { useEffect } from "react";
 
-export default function PopularPage() {
-  const { popularAnime, isSearch, getData } = useGlobalContext();
+export default function PopularPage({ rendered }) {
+  const { 
+    popularAnime, searchResults, 
+    isSearch, getData 
+  } = useGlobalContext();
 
   useEffect(() => {
     getData(MALv4, "bypopularity");
   }, []);
 
   function conditionalRender() {
-    if (!isSearch){
-      return popularAnime.map(anime => {
-        return (
-          <Link to={`anime/${anime.mal_id}`} key={anime.mal_id}>
-            <img src={anime.images.jpg.image_url} alt = {anime.title} />
-            <h2>{anime.title}</h2>
-            <h2>{anime.title_english}</h2>
-            <h2>{anime.title_japanese}</h2>
-          </Link>  
-        )
-      });s
+    if (!isSearch && rendered === "Popular"){
+      return <PopulateAnimeMAL arr={popularAnime} />
+    } else {
+      return <PopulateAnimeMAL arr={searchResults} />
     }
   }
  
